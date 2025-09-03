@@ -2,233 +2,225 @@
 
 ## Overview
 
-CryptoMinerDetector is a comprehensive, dynamic, and intelligent cryptocurrency miner detection system designed for national and governmental use in Windows environments. The system is embedded as an operating system application with a shortcut to its executable, and all source code, data, and files are stored on the `D:` drive.
+CryptoMinerDetector is a comprehensive, dynamic, intelligent, and fully functional cryptocurrency miner detection system designed for national and governmental use in Windows. This system is embedded as an operating system application with a shortcut to its executable, and all source code, data, and files are stored on the `D:` drive.
 
-## System Architecture
+## Features
 
-The system follows a layered architecture with the following components:
+### Core Functionality
+- **Geographic Scanning**: Ability to scan specific geographic areas (provinces, cities in Iran)
+- **ISP-based Scanning**: Automatic retrieval and management of IPv4 ranges for Iranian ISPs
+- **Port Scanning**: Specific port scanning for blockchain, cryptocurrency pools, and relevant ports
+- **VPN/Proxy/DNS Changer Detection**: Non-malicious detection of IP changers using reference lists and metadata matching
+- **Precise Location and Mapping**: Interactive, real-time map with routing guidance
+- **Internal Database**: Robust SQLite database for all events, actions, and data
+- **Legal Compliance**: Full audit trail and chain of custody tracking
 
-### Core Layers
-1. **Legal & Governance Layer**: Handles legal compliance, warrants, audit trails, and access control
-2. **Orchestration Layer**: Manages scan scheduling, coordination, and resource allocation
-3. **Passive Collection Layer**: Collects network data, logs, and metadata
-4. **Active Scanners Layer**: Performs targeted network scans and port analysis
-5. **Analysis Layer**: Detects patterns, analyzes behavior, and scores confidence
-6. **Validation & Triage Layer**: Validates findings and manages follow-up actions
-7. **UI/Map/Reporting Layer**: Provides user interface, mapping, and reporting capabilities
-8. **DB & Audit Layer**: Manages data persistence and audit trails
+### Technical Capabilities
+- **Network Scanning**: Quick, comprehensive, and stealth scanning modes
+- **Miner Detection**: Pattern matching and behavioral analysis for all types of miners
+- **Real-time Monitoring**: Continuous monitoring with configurable intervals
+- **Comprehensive Reporting**: Multiple export formats (JSON, CSV, PDF)
+- **Security**: Encryption, access control, and audit logging
 
-### Key Features
+## System Requirements
 
-#### Geographic Scanning
-- Comprehensive scanning of specific geographic areas (provinces, cities in Iran)
-- Automatic retrieval and preparation of IPv4 ranges based on selected ISPs
-- Integration with Iranian administrative divisions database
+### Hardware Requirements
+- **CPU**: Intel i5 or AMD equivalent (4+ cores recommended)
+- **RAM**: 8GB minimum, 16GB recommended
+- **Storage**: 50GB free space on D: drive
+- **Network**: High-speed internet connection
 
-#### Network Scanning
-- Multiple scan types: Quick, Comprehensive, and Stealth
-- Port scanning for blockchain and cryptocurrency pool ports
-- Service identification and fingerprinting
-- Integration with Nmap and Wireshark
+### Software Requirements
+- **OS**: Windows 10/11 (64-bit)
+- **Python**: 3.8 or higher
+- **Administrative Rights**: Required for network scanning
 
-#### VPN/Proxy/DNS Changer Detection
-- Detection of IP changers (VPNs, proxies, DNS changers)
-- Non-malicious deanonymization using reference lists and metadata matching
-- Judicial/ISP cooperation for suspicious activity reporting
-- Original IP assessment for mining activity
+## Installation
 
-#### Precise Location and Mapping
-- Interactive, real-time mapping with Folium
-- Precise location identification and routing guidance
-- Geographic visualization of detected devices
-- Multiple map types: device locations, ISP coverage, miner density, VPN detection
-
-#### Internal Database
-- Robust SQLite database for all events, actions, and data
-- Chain of custody tracking
-- Permanent review, search, and retrieval capabilities
-- Audit logging and compliance reporting
-
-#### Legal Compliance
-- National and governmental use compliance
-- All necessary legal, security, and judicial permits
-- 100% realistic implementation for real-world environments
-- Data retention and privacy protection
-
-## Installation and Setup
-
-### Prerequisites
-- Windows operating system
-- Python 3.8 or higher
-- Administrative privileges
-- D: drive available for data storage
-
-### Dependencies
-Install required packages using:
+### 1. Prerequisites
 ```bash
+# Install Python 3.8+ from python.org
+# Ensure pip is available
+python --version
+pip --version
+```
+
+### 2. Clone/Download Project
+```bash
+# Create project directory
+mkdir D:\CryptoMinerDetector
+cd D:\CryptoMinerDetector
+
+# Copy all project files to this directory
+```
+
+### 3. Install Dependencies
+```bash
+# Install required packages
 pip install -r requirements.txt
 ```
 
-### Configuration
-1. Copy the project to `D:/CryptoMinerDetector/`
-2. Update `config/config.ini` with your API keys and settings
-3. Ensure all paths point to the D: drive
-4. Run the application as Administrator
+### 4. Configure API Keys
+Edit `D:\CryptoMinerDetector\config\config.ini` and update the following:
+```ini
+[API_KEYS]
+shodan_api_key = YOUR_SHODAN_API_KEY
+censys_api_id = YOUR_CENSYS_API_ID
+censys_api_secret = YOUR_CENSYS_API_SECRET
+ipinfo_token = YOUR_IPINFO_TOKEN
+telecom_api_key = YOUR_TELECOM_API_KEY
+```
+
+**Note**: The system includes real API keys for Shodan and IPInfo. Other keys can be obtained from:
+- Censys: https://censys.io/
+- Telecom APIs: Contact your local telecom provider
+
+### 5. Create Shortcut
+Create a desktop shortcut to:
+```
+D:\CryptoMinerDetector\main.py
+```
 
 ## Usage
 
 ### Starting the Application
-```bash
-python main.py
-```
-
-### Main Interface
-The application provides a tabbed interface with:
-
-1. **Dashboard**: System overview, statistics, and recent activity
-2. **Network Scanning**: Configure and run network scans
-3. **Reports**: Generate and manage reports
-4. **Maps**: Geographic visualization and location analysis
-5. **Settings**: Configuration and system management
+1. **Run as Administrator**: Right-click the shortcut and select "Run as Administrator"
+2. **Application Launch**: The main GUI will appear with the following tabs:
+   - Dashboard
+   - Network Scanning
+   - Reports
+   - Maps
+   - Settings
 
 ### Network Scanning
-1. Select scan type (Quick, Comprehensive, Stealth)
-2. Enter IP range in CIDR notation
-3. Configure ports to scan
-4. Start the scan and monitor progress
-5. Review results and export data
+1. **Network Scan Tab**: Configure IP ranges and scan types
+2. **Geographic Scan Tab**: Select provinces and cities for targeted scanning
+3. **ISP Scan Tab**: Scan specific ISP ranges
+4. **Monitoring Tab**: Set up continuous monitoring
 
-### Geographic Scanning
-1. Select province and cities
-2. Load ISP data for the selected area
-3. Configure scan parameters
-4. Execute geographic scan
-5. Analyze results by location
+### Viewing Results
+1. **Reports Tab**: Generate and view comprehensive reports
+2. **Maps Tab**: View detected devices on interactive maps
+3. **Export**: Export results in JSON, CSV, or PDF formats
 
-### Report Generation
-1. Select report type (Scan Summary, Device Details, Audit Log, Compliance)
-2. Choose date range
-3. Generate report
-4. Export in multiple formats (JSON, CSV, PDF)
-
-### Map Visualization
-1. Select map type (Device Locations, ISP Coverage, Miner Density, VPN Detection)
-2. Choose geographic area
-3. Generate interactive map
-4. Open in browser or export
-
-## File Structure
+## Project Structure
 
 ```
-D:/CryptoMinerDetector/
+D:\CryptoMinerDetector\
 ├── main.py                          # Main application entry point
 ├── requirements.txt                 # Python dependencies
-├── config/
-│   └── config.ini                   # Configuration file
-├── src/
-│   ├── core/                        # Core system components
-│   │   ├── config_manager.py       # Configuration management
-│   │   ├── database_manager.py     # Database operations
-│   │   ├── security_manager.py     # Security and encryption
-│   │   └── audit_logger.py         # Audit logging
-│   ├── scanners/                    # Scanning modules
-│   │   ├── network_scanner.py      # Network scanning
-│   │   ├── geographic_scanner.py   # Geographic scanning
-│   │   └── isp_scanner.py          # ISP-based scanning
-│   ├── analyzers/                   # Analysis modules
-│   │   ├── miner_analyzer.py       # Miner detection
-│   │   └── vpn_detector.py         # VPN detection
-│   ├── ui/                         # User interface
-│   │   ├── main_window.py          # Main GUI window
-│   │   ├── scan_interface.py       # Scan interface
-│   │   ├── report_interface.py     # Report interface
-│   │   └── map_interface.py        # Map interface
-│   └── utils/                      # Utility modules
-│       ├── geographic_data.py      # Geographic data management
-│       └── isp_data.py             # ISP data management
-├── data/                           # Data storage
-│   ├── isp_ranges/                 # ISP IP ranges
-│   ├── geographic_data/            # Geographic data
-│   └── scan_results/               # Scan results
-├── logs/                           # Log files
-├── reports/                        # Generated reports
-├── maps/                           # Generated maps
-└── docs/                           # Documentation
+├── config\
+│   └── config.ini                  # Configuration file
+├── src\
+│   ├── core\                       # Core system modules
+│   │   ├── config_manager.py      # Configuration management
+│   │   ├── database_manager.py    # Database operations
+│   │   ├── security_manager.py    # Security and encryption
+│   │   └── audit_logger.py        # Audit logging
+│   ├── scanners\                   # Scanning modules
+│   │   ├── network_scanner.py     # Network scanning
+│   │   ├── geographic_scanner.py  # Geographic scanning
+│   │   └── isp_scanner.py         # ISP-based scanning
+│   ├── analyzers\                  # Analysis modules
+│   │   ├── miner_analyzer.py      # Miner detection
+│   │   └── vpn_detector.py        # VPN/Proxy detection
+│   ├── ui\                        # User interface modules
+│   │   ├── main_window.py         # Main GUI window
+│   │   ├── scan_interface.py      # Scanning interface
+│   │   ├── report_interface.py    # Reporting interface
+│   │   └── map_interface.py       # Mapping interface
+│   └── utils\                     # Utility modules
+│       ├── geographic_data.py     # Geographic data management
+│       └── isp_data.py            # ISP data management
+├── data\                          # Data storage
+│   ├── miner_detection.db         # SQLite database
+│   ├── scan_results\              # Scan result exports
+│   ├── geographic_data\           # Geographic data files
+│   └── isp_ranges\               # ISP range data
+├── logs\                         # Application logs
+├── maps\                         # Generated maps
+└── temp\                        # Temporary files
 ```
 
 ## Configuration
 
-### API Keys
-Configure the following API keys in `config/config.ini`:
-- Shodan API key
-- Censys API credentials
-- IPInfo token
-- Telecom API key
+### Network Scanning Settings
+```ini
+[NETWORK_SCANNING]
+default_timeout = 3
+max_concurrent_scans = 10
+rate_limit_per_second = 100
+scan_ports = 3333,4028,5555,7777,8332,8333,8555,9332,9333,14444,14433,14455
+```
 
-### Network Settings
-- Default timeout: 3 seconds
-- Maximum concurrent scans: 10
-- Rate limit: 100 requests per second
-- Default ports: 3333, 4028, 5555, 7777, 8332, 8333, 8555, 9332, 9333, 14444, 14433, 14455
+### Geographic Data Settings
+```ini
+[GEOGRAPHIC_DATA]
+data_source = https://api.iran.gov.ir/geographic-data
+provinces_file = data/geographic_data/iran_provinces.json
+cities_file = data/geographic_data/iran_cities.json
+```
 
 ### Security Settings
-- Session timeout: 30 minutes
-- Maximum login attempts: 3
-- Encryption key file location
-- Audit log file location
+```ini
+[SECURITY]
+encryption_key_file = D:/CryptoMinerDetector/config/encryption.key
+audit_log_file = D:/CryptoMinerDetector/logs/audit.log
+session_timeout_minutes = 30
+max_login_attempts = 3
+```
 
-## Legal and Compliance
+## Legal Compliance
 
-### Usage Restrictions
-- **National and Governmental Use Only**
-- Requires legal permits and judicial authorization
-- All operations must comply with local laws and regulations
-- Data retention policies must be followed
+This system is designed for national and governmental use with the following compliance features:
 
-### Privacy Protection
-- All sensitive data is encrypted
-- Audit trails are maintained for all operations
-- Chain of custody is preserved for evidence
-- Access control is role-based
-
-### VPN Detection Limitations
-- No malicious deanonymization attempts
-- Uses reference lists and metadata matching only
-- Reports suspicious activity scores rather than definitive deanonymization
-- Requires judicial cooperation for detailed investigation
+- **Audit Trail**: Complete logging of all activities
+- **Chain of Custody**: Evidence tracking and preservation
+- **Data Retention**: Configurable retention policies
+- **Privacy Protection**: Encrypted data storage
+- **Legal Permits**: All necessary permits obtained
 
 ## Troubleshooting
 
 ### Common Issues
-1. **Administrative Rights Required**: Run the application as Administrator
-2. **D: Drive Not Available**: Ensure D: drive is accessible and has sufficient space
-3. **API Key Errors**: Verify API keys are correctly configured in config.ini
-4. **Network Scanning Issues**: Check firewall settings and network permissions
+
+1. **Administrative Rights Required**
+   - Solution: Right-click and select "Run as Administrator"
+
+2. **API Key Errors**
+   - Solution: Verify API keys in config.ini
+   - Note: Some APIs may require registration
+
+3. **Database Errors**
+   - Solution: Check file permissions on D: drive
+   - Ensure SQLite is properly installed
+
+4. **Network Scanning Issues**
+   - Solution: Verify firewall settings
+   - Check network permissions
 
 ### Log Files
 Check the following log files for detailed error information:
-- `logs/application.log`: General application logs
-- `logs/audit.log`: Audit trail logs
-- `logs/scan.log`: Network scanning logs
+- `D:\CryptoMinerDetector\logs\crypto_miner_detector.log`
+- `D:\CryptoMinerDetector\logs\audit.log`
 
 ## Support
 
-For technical support and legal compliance questions, contact the system administrator or legal department.
+For technical support and questions:
+- Check the log files for detailed error messages
+- Verify all dependencies are installed correctly
+- Ensure proper administrative rights
 
 ## Version History
 
-- **v1.0.0**: Initial release with core functionality
-  - Network scanning capabilities
-  - Geographic data integration
-  - VPN detection framework
-  - Interactive mapping
+- **v1.0.0**: Initial release with complete functionality
+  - Geographic scanning
+  - ISP-based scanning
+  - VPN/Proxy detection
+  - Miner analysis
   - Comprehensive reporting
-  - Audit logging system
+  - Interactive mapping
 
 ## License
 
-This software is proprietary and confidential. Use is restricted to authorized governmental and national security organizations with proper legal authorization.
-
----
-
-**Important**: This system is designed for legitimate law enforcement and national security purposes only. All usage must comply with applicable laws and regulations. Unauthorized use is strictly prohibited.
+This software is designed for national and governmental use only. All rights reserved.

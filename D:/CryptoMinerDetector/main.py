@@ -41,10 +41,6 @@ from scanners.geographic_scanner import GeographicScanner
 from scanners.isp_scanner import ISPScanner
 from analyzers.miner_analyzer import MinerAnalyzer
 from analyzers.vpn_detector import VPNDetector
-from scanners.geographic_scanner import GeographicScanner
-from scanners.isp_scanner import ISPScanner
-from analyzers.miner_analyzer import MinerAnalyzer
-from analyzers.vpn_detector import VPNDetector
 from utils.geographic_data import GeographicDataManager
 from utils.isp_data import ISPDataManager
 
@@ -55,8 +51,8 @@ class CryptoMinerDetector:
     
     def __init__(self):
         """Initialize the main application."""
-        self.config = None
-        self.db_manager = None
+        self.config_manager = None
+        self.database_manager = None
         self.security_manager = None
         self.audit_logger = None
         self.root = None
@@ -100,7 +96,7 @@ class CryptoMinerDetector:
                 messagebox.showerror("Error", "Configuration file not found!")
                 sys.exit(1)
                 
-            self.config = ConfigManager(config_path)
+            self.config_manager = ConfigManager(config_path)
             self.logger.info("Configuration loaded successfully")
             
         except Exception as e:
@@ -111,20 +107,27 @@ class CryptoMinerDetector:
     def _initialize_core_components(self):
         """Initialize core system components."""
         try:
-            # Initialize database manager
-            self.db_manager = DatabaseManager(self.config)
+            # Initialize core managers
+            self.config_manager = ConfigManager()
+            self.database_manager = DatabaseManager(self.config_manager)
+            self.security_manager = SecurityManager(self.config_manager)
+            self.audit_logger = AuditLogger(self.config_manager, self.database_manager)
             
-            # Initialize security manager
-            self.security_manager = SecurityManager(self.config)
+            # Initialize data managers
+            self.geographic_data_manager = GeographicDataManager(self.config_manager)
+            self.isp_data_manager = ISPDataManager(self.config_manager)
             
-            # Initialize audit logger
-            self.audit_logger = AuditLogger(self.config)
+            # Initialize scanners
+            self.network_scanner = NetworkScanner(self.config_manager, self.database_manager, self.audit_logger)
+            self.geographic_scanner = GeographicScanner(self.config_manager, self.database_manager, 
+                                                       self.network_scanner, self.geographic_data_manager, 
+                                                       self.isp_data_manager, self.audit_logger)
+            self.isp_scanner = ISPScanner(self.config_manager, self.database_manager, 
+                                         self.network_scanner, self.isp_data_manager, self.audit_logger)
             
-            # Initialize geographic data manager
-            self.geo_manager = GeographicDataManager(self.config)
-            
-            # Initialize ISP data manager
-            self.isp_manager = ISPDataManager(self.config)
+            # Initialize analyzers
+            self.miner_analyzer = MinerAnalyzer(self.config_manager, self.database_manager, self.audit_logger)
+            self.vpn_detector = VPNDetector(self.config_manager, self.database_manager, self.audit_logger)
             
             self.logger.info("Core components initialized successfully")
             
@@ -149,12 +152,12 @@ class CryptoMinerDetector:
             # Create main window
             self.main_window = MainWindow(
                 self.root,
-                self.config,
-                self.db_manager,
+                self.config_manager,
+                self.database_manager,
                 self.security_manager,
                 self.audit_logger,
-                self.geo_manager,
-                self.isp_manager
+                self.geographic_data_manager,
+                self.isp_data_manager
             )
             
             # Setup window close handler
@@ -171,11 +174,15 @@ class CryptoMinerDetector:
         """Handle application closing."""
         try:
             # Log the closing event
-            self.audit_logger.log_event("APPLICATION_CLOSE", "Application closed by user")
+            self.audit_logger.log_system_event(
+                event_type="application_close",
+                description="Application closed by user",
+                system_component="main"
+            )
             
             # Cleanup resources
-            if self.db_manager:
-                self.db_manager.close()
+            if self.database_manager:
+                self.database_manager.close()
                 
             # Destroy the window
             if self.root:
@@ -192,7 +199,11 @@ class CryptoMinerDetector:
             self.logger.info("Starting CryptoMinerDetector application")
             
             # Log application start
-            self.audit_logger.log_event("APPLICATION_START", "Application started successfully")
+            self.audit_logger.log_system_event(
+                event_type="application_start",
+                description="Application started successfully",
+                system_component="main"
+            )
             
             # Start the GUI main loop
             self.root.mainloop()
