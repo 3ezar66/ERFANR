@@ -41,6 +41,10 @@ from scanners.geographic_scanner import GeographicScanner
 from scanners.isp_scanner import ISPScanner
 from analyzers.miner_analyzer import MinerAnalyzer
 from analyzers.vpn_detector import VPNDetector
+from scanners.geographic_scanner import GeographicScanner
+from scanners.isp_scanner import ISPScanner
+from analyzers.miner_analyzer import MinerAnalyzer
+from analyzers.vpn_detector import VPNDetector
 from utils.geographic_data import GeographicDataManager
 from utils.isp_data import ISPDataManager
 
