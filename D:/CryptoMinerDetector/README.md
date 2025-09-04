@@ -37,7 +37,25 @@ CryptoMinerDetector is a comprehensive, dynamic, intelligent, and fully function
 
 ## Installation
 
-### 1. Prerequisites
+### Method 1: Standalone Executable (Recommended)
+
+#### Quick Installation
+1. **Download the executable**: `CryptoMinerDetector.exe`
+2. **Run installer**: Right-click `install_exe.bat` and select "Run as Administrator"
+3. **Launch**: Use the desktop shortcut (right-click → "Run as Administrator")
+
+#### Build Your Own Executable
+```bash
+# Run the build script as Administrator
+build_exe.bat
+
+# Or manually:
+python build_exe.py
+```
+
+### Method 2: Python Source Code
+
+#### 1. Prerequisites
 ```bash
 # Install Python 3.8+ from python.org
 # Ensure pip is available
@@ -45,7 +63,7 @@ python --version
 pip --version
 ```
 
-### 2. Clone/Download Project
+#### 2. Clone/Download Project
 ```bash
 # Create project directory
 mkdir D:\CryptoMinerDetector
@@ -54,13 +72,13 @@ cd D:\CryptoMinerDetector
 # Copy all project files to this directory
 ```
 
-### 3. Install Dependencies
+#### 3. Install Dependencies
 ```bash
 # Install required packages
 pip install -r requirements.txt
 ```
 
-### 4. Configure API Keys
+#### 4. Configure API Keys
 Edit `D:\CryptoMinerDetector\config\config.ini` and update the following:
 ```ini
 [API_KEYS]
@@ -75,7 +93,7 @@ telecom_api_key = YOUR_TELECOM_API_KEY
 - Censys: https://censys.io/
 - Telecom APIs: Contact your local telecom provider
 
-### 5. Create Shortcut
+#### 5. Create Shortcut
 Create a desktop shortcut to:
 ```
 D:\CryptoMinerDetector\main.py
@@ -84,13 +102,21 @@ D:\CryptoMinerDetector\main.py
 ## Usage
 
 ### Starting the Application
-1. **Run as Administrator**: Right-click the shortcut and select "Run as Administrator"
+
+#### Standalone Executable
+1. **Run as Administrator**: Right-click the desktop shortcut and select "Run as Administrator"
 2. **Application Launch**: The main GUI will appear with the following tabs:
    - Dashboard
    - Network Scanning
    - Reports
    - Maps
    - Settings
+
+#### Python Source Code
+```bash
+# Run as Administrator
+python main.py
+```
 
 ### Network Scanning
 1. **Network Scan Tab**: Configure IP ranges and scan types
@@ -109,6 +135,11 @@ D:\CryptoMinerDetector\main.py
 D:\CryptoMinerDetector\
 ├── main.py                          # Main application entry point
 ├── requirements.txt                 # Python dependencies
+├── build_exe.py                     # Executable builder script
+├── build_exe.bat                    # Executable builder batch file
+├── CryptoMinerDetector.exe          # Standalone executable (after build)
+├── launch.bat                       # Launcher script for executable
+├── install_exe.bat                  # Installer for executable
 ├── config\
 │   └── config.ini                  # Configuration file
 ├── src\
@@ -141,6 +172,27 @@ D:\CryptoMinerDetector\
 ├── maps\                         # Generated maps
 └── temp\                        # Temporary files
 ```
+
+## Executable Features
+
+### Standalone Executable Benefits
+- **No Python Installation Required**: Runs on any Windows system
+- **Single File**: All dependencies bundled into one .exe file
+- **Easy Distribution**: Can be shared as a single file
+- **Professional Installation**: Proper Windows installation with shortcuts
+- **UAC Integration**: Automatic administrator privileges request
+
+### Executable Size
+- **Approximate Size**: 150-200 MB (includes all dependencies)
+- **Compression**: UPX compression applied for smaller size
+- **Dependencies**: All Python packages and libraries included
+
+### System Requirements for Executable
+- **OS**: Windows 10/11 (64-bit)
+- **RAM**: 8GB minimum, 16GB recommended
+- **Storage**: 50GB free space on D: drive
+- **Network**: High-speed internet connection
+- **Permissions**: Administrator rights required
 
 ## Configuration
 
@@ -184,6 +236,21 @@ This system is designed for national and governmental use with the following com
 
 ### Common Issues
 
+#### Executable Issues
+1. **Executable Won't Start**
+   - Solution: Right-click and select "Run as Administrator"
+   - Check Windows Defender/antivirus isn't blocking it
+   - Ensure D: drive is available
+
+2. **"Missing DLL" Errors**
+   - Solution: Install Visual C++ Redistributable 2015-2022
+   - Download from Microsoft's official website
+
+3. **Executable Too Large**
+   - Solution: This is normal (150-200 MB includes all dependencies)
+   - Consider using Python source code for smaller footprint
+
+#### Python Source Code Issues
 1. **Administrative Rights Required**
    - Solution: Right-click and select "Run as Administrator"
 
@@ -199,10 +266,21 @@ This system is designed for national and governmental use with the following com
    - Solution: Verify firewall settings
    - Check network permissions
 
+#### Build Issues
+1. **PyInstaller Build Fails**
+   - Solution: Ensure all dependencies are installed
+   - Run `pip install -r requirements.txt`
+   - Check Python version (3.8+ required)
+
+2. **Executable Crashes on Startup**
+   - Solution: Check log files for detailed error messages
+   - Ensure all required directories exist on D: drive
+
 ### Log Files
 Check the following log files for detailed error information:
 - `D:\CryptoMinerDetector\logs\crypto_miner_detector.log`
 - `D:\CryptoMinerDetector\logs\audit.log`
+- `%TEMP%\CryptoMinerDetector\` (for executable logs)
 
 ## Support
 

@@ -50,3 +50,6 @@ pytest-cov==4.1.0
 # Development tools
 black==23.11.0
 flake8==6.1.0
+
+# Executable building
+pyinstaller==6.3.0
